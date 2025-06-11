@@ -1,0 +1,170 @@
+/* Základní styl těla */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 0 20px;
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+/* Nadpis */
+h1 {
+  text-align: center;
+  color: #222;
+  margin-bottom: 25px;
+  user-select: none;
+}
+
+/* Skrytí sekcí */
+#lobby, #quiz, #results {
+  display: none;
+}
+
+/* Formulář pro vstup jména a místnosti */
+#joinCreate {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+#joinCreate input {
+  padding: 10px;
+  margin: 5px 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  width: 200px;
+  transition: border-color 0.3s ease;
+}
+
+#joinCreate input:focus {
+  border-color: #5a9df9;
+  outline: none;
+}
+
+/* Tlačítka */
+button {
+  background-color: #5a9df9;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+button:hover:not(:disabled) {
+  background-color: #3f7ae0;
+}
+
+button:disabled {
+  background-color: #a0bdfd;
+  cursor: not-allowed;
+}
+
+/* Seznam hráčů a odpovědí */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: white;
+  border: 1.5px solid #ccc;
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+li:hover {
+  background-color: #e8f0fe;
+  border-color: #5a9df9;
+}
+
+li.correct {
+  background-color: #b6e7a7 !important;
+  border-color: #3a8a00 !important;
+  cursor: default;
+}
+
+li.incorrect {
+  background-color: #f9b5b5 !important;
+  border-color: #d12e2e !important;
+  cursor: default;
+}
+
+/* Časovač */
+#timer {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #5a9df9;
+  user-select: none;
+}
+
+/* Text otázky */
+#questionText {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  user-select: none;
+}
+
+/* Výpis místnosti */
+#roomDisplay {
+  font-weight: 700;
+  color: #5a9df9;
+  user-select: all;
+}
+
+/* Skóre */
+#finalScores li {
+  font-size: 18px;
+  padding: 8px 12px;
+  background-color: white;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  user-select: none;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  body {
+    max-width: 90%;
+    padding: 0 10px;
+  }
+
+  #joinCreate input {
+    width: 90%;
+    margin: 5px 0;
+  }
+
+  button {
+    width: 90%;
+    margin: 10px 0;
+  }
+}
+
+.correct {
+  background-color: #b6e7a7 !important; 
+  border-color: #3a8a00 !important;
+  cursor: default;
+}
+
+.incorrect {
+  background-color: #f5a6a6 !important;
+  border-color: #a00000 !important;
+  cursor: default;
+}
+

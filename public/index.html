@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kvízová hra</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="main">
+    <h1>Kvízová hra</h1>
+
+    <div id="joinCreate">
+      <input type="text" id="name" placeholder="Tvoje jméno" />
+      <button id="createBtn">Vytvořit místnost</button>
+      <input type="text" id="roomCode" placeholder="Kód místnosti" />
+      <button id="joinBtn">Připojit se</button>
+    </div>
+
+    <div id="lobby" style="display: none">
+      <h2>Místnost: <span id="roomDisplay"></span></h2>
+      <h3>Hráči:</h3>
+      <ul id="players"></ul>
+      <button id="startBtn" style="display: none">Spustit hru</button>
+    </div>
+
+    <div id="quiz" style="display: none">
+      <p id="questionText"></p>
+      <ul id="answers"></ul>
+      <button id="nextBtn" style="display: none">Další otázka</button>
+    </div>
+
+    <div id="results" style="display: none">
+      <h2>Výsledky</h2>
+      <ul id="finalScores"></ul>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
