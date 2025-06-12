@@ -1,4 +1,4 @@
-/* Základní styl těla */
+/* zakladni styl tela */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   max-width: 600px;
@@ -8,7 +8,7 @@ body {
   color: #333;
 }
 
-/* Nadpis */
+/* nadpis */
 h1 {
   text-align: center;
   color: #222;
@@ -16,12 +16,12 @@ h1 {
   user-select: none;
 }
 
-/* Skrytí sekcí */
+/* skryti sekci */
 #lobby, #quiz, #results {
   display: none;
 }
 
-/* Formulář pro vstup jména a místnosti */
+/* formular pro jmeno a kod mistnosti */
 #joinCreate {
   text-align: center;
   margin-bottom: 25px;
@@ -42,7 +42,7 @@ h1 {
   outline: none;
 }
 
-/* Tlačítka */
+/* tlacitka */
 button {
   background-color: #5a9df9;
   border: none;
@@ -65,7 +65,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Seznam hráčů a odpovědí */
+/* seznam hracu a odpovedi */
 ul {
   list-style: none;
   padding: 0;
@@ -101,7 +101,7 @@ li.incorrect {
   cursor: default;
 }
 
-/* Časovač */
+/* casovac */
 #timer {
   font-weight: 700;
   font-size: 20px;
@@ -111,7 +111,7 @@ li.incorrect {
   user-select: none;
 }
 
-/* Text otázky */
+/* text otazky */
 #questionText {
   font-size: 22px;
   font-weight: 600;
@@ -119,14 +119,14 @@ li.incorrect {
   user-select: none;
 }
 
-/* Výpis místnosti */
+/* vypis kodu mistnosti */
 #roomDisplay {
   font-weight: 700;
   color: #5a9df9;
   user-select: all;
 }
 
-/* Skóre */
+/* vysledky - finalni skore */
 #finalScores li {
   font-size: 18px;
   padding: 8px 12px;
@@ -138,7 +138,7 @@ li.incorrect {
   text-align: center;
 }
 
-/* Leaderboard */
+/* leaderboard - poradi */
 #leaderboard {
   margin-top: 20px;
   padding: 10px;
@@ -170,7 +170,7 @@ li.incorrect {
   text-align: center;
 }
 
-/* Responsive */
+/* responsivni styl pro mobily */
 @media (max-width: 480px) {
   body {
     max-width: 90%;
@@ -188,6 +188,7 @@ li.incorrect {
   }
 }
 
+/* barvy pro spravne a spatne odpovedi */
 .correct {
   background-color: #b6e7a7 !important; 
   border-color: #3a8a00 !important;
