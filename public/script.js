@@ -1,5 +1,7 @@
+// pripojeni k socket.io serveru
 const socket = io();
 
+// nacteni HTML elementu
 const nameInput = document.getElementById("name");
 const roomCodeInput = document.getElementById("roomCode");
 const createBtn = document.getElementById("createBtn");
@@ -17,19 +19,22 @@ const leaderboardDiv = document.getElementById("leaderboard");
 const resultsDiv = document.getElementById("results");
 const finalScoresUl = document.getElementById("finalScores");
 
+// pomocne promenne
 let currentRoom = null;
 let answered = false;
 let correctAnswerGlobal = null;
 let timerInterval = null;
-const QUESTION_TIME = 15;
+const QUESTION_TIME = 15; // sekundy
 
+// casovac
 const timerP = document.createElement("p");
 timerP.id = "timer";
 quizDiv.insertBefore(timerP, answersUl);
 
+// vytvoreni mistnosti
 createBtn.onclick = () => {
   const name = nameInput.value.trim();
-  if (!name) return alert("Zadej své jméno.");
+  if (!name) return alert("Zadej sve jmeno.");
 
   socket.emit("createRoom", ({ code }) => {
     currentRoom = code;
@@ -40,10 +45,11 @@ createBtn.onclick = () => {
   });
 };
 
+// pripojeni do mistnosti
 joinBtn.onclick = () => {
   const name = nameInput.value.trim();
   const code = roomCodeInput.value.trim();
-  if (!name || !code) return alert("Zadej jméno a kód místnosti.");
+  if (!name || !code) return alert("Zadej jmeno a kod mistnosti.");
 
   socket.emit("joinRoom", { code, name }, ({ success, error }) => {
     if (success) {
@@ -55,19 +61,22 @@ joinBtn.onclick = () => {
   });
 };
 
+// start hry
 startBtn.onclick = () => {
   socket.emit("startGame", currentRoom);
 };
 
+// aktualizace hracu v lobby
 socket.on("playersUpdate", (players) => {
   playersUl.innerHTML = "";
   players.forEach(p => {
     const li = document.createElement("li");
-    li.textContent = `${p.name} - skóre: ${p.score}`;
+    li.textContent = `${p.name} - skore: ${p.score}`;
     playersUl.appendChild(li);
   });
 });
 
+// zobrazeni otazky
 socket.on("question", (q) => {
   showQuiz();
   answered = false;
@@ -93,6 +102,7 @@ socket.on("question", (q) => {
   startTimer(QUESTION_TIME);
 });
 
+// zobrazeni spravne odpovedi
 socket.on("answerResult", ({ correctAnswer }) => {
   correctAnswerGlobal = correctAnswer;
   [...answersUl.children].forEach(li => {
@@ -107,26 +117,30 @@ socket.on("answerResult", ({ correctAnswer }) => {
   });
 });
 
+// leaderboard - prubezne poradi
 socket.on("leaderboardUpdate", (players) => {
-  leaderboardDiv.innerHTML = "<h3>Průběžné pořadí:</h3>";
+  leaderboardDiv.innerHTML = "<h3>Prubezne poradi:</h3>";
   const ul = document.createElement("ul");
   players.forEach((p, index) => {
     const li = document.createElement("li");
-    li.textContent = `${index + 1}. ${p.name}: ${p.score} bodů`;
+    li.textContent = `${index + 1}. ${p.name}: ${p.score} bodu`;
     ul.appendChild(li);
   });
   leaderboardDiv.appendChild(ul);
 });
 
+// konec hry
 socket.on("gameOver", (players) => {
   showResults(players);
 });
 
+// mistnost byla zavrena
 socket.on("roomClosed", () => {
-  alert("Místnost byla uzavřena hostitelem.");
+  alert("Mistnost byla uzavrena hostitelem.");
   location.reload();
 });
 
+// zobraz lobby
 function showLobby() {
   document.getElementById("joinCreate").style.display = "none";
   lobbyDiv.style.display = "block";
@@ -134,6 +148,7 @@ function showLobby() {
   resultsDiv.style.display = "none";
 }
 
+// zobraz kviz
 function showQuiz() {
   lobbyDiv.style.display = "none";
   quizDiv.style.display = "block";
@@ -141,6 +156,7 @@ function showQuiz() {
   clearResultsHighlight();
 }
 
+// zobraz vysledky
 function showResults(players) {
   lobbyDiv.style.display = "none";
   quizDiv.style.display = "none";
@@ -149,15 +165,17 @@ function showResults(players) {
   players.sort((a,b) => b.score - a.score);
   players.forEach(p => {
     const li = document.createElement("li");
-    li.textContent = `${p.name}: ${p.score} bodů`;
+    li.textContent = `${p.name}: ${p.score} bodu`;
     finalScoresUl.appendChild(li);
   });
 }
 
+// zakaz kliknuti na odpovedi
 function disableAnswers() {
   [...answersUl.children].forEach(li => li.style.pointerEvents = "none");
 }
 
+// reset barvy odpovedi
 function clearResultsHighlight() {
   [...answersUl.children].forEach(li => {
     li.style.backgroundColor = "";
@@ -165,12 +183,13 @@ function clearResultsHighlight() {
   });
 }
 
+// start casovace
 function startTimer(seconds) {
   let timeLeft = seconds;
-  timerP.textContent = `Čas: ${timeLeft}s`;
+  timerP.textContent = `Cas: ${timeLeft}s`;
   timerInterval = setInterval(() => {
     timeLeft--;
-    timerP.textContent = `Čas: ${timeLeft}s`;
+    timerP.textContent = `Cas: ${timeLeft}s`;
     if (timeLeft <= 0) {
       stopTimer();
       if (!answered) {
@@ -182,7 +201,7 @@ function startTimer(seconds) {
   }, 1000);
 }
 
+// zastaveni casovace
 function stopTimer() {
   clearInterval(timerInterval);
-
 }
