@@ -1,4 +1,3 @@
-// === script.js (opravený leaderboard) ===
 const socket = io();
 
 const nameInput = document.getElementById("name");
@@ -76,6 +75,7 @@ socket.on("question", (q) => {
   questionTextP.textContent = q.question;
   answersUl.innerHTML = "";
   leaderboardDiv.innerHTML = "";
+  timerP.textContent = "";
 
   q.answers.forEach(a => {
     const li = document.createElement("li");
@@ -184,5 +184,5 @@ function startTimer(seconds) {
 
 function stopTimer() {
   clearInterval(timerInterval);
-  timerP.textContent = "";
+
 }
