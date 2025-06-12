@@ -1,9 +1,8 @@
-// server.js
-import express from "express";
-import http from "http";
-import { Server } from "socket.io";
-import fetch from "node-fetch";
-// import { v4 as uuidv4 } from "uuid";
+
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const fetch = require("node-fetch");
 
 const app = express();
 const server = http.createServer(app);
@@ -84,6 +83,10 @@ io.on("connection", (socket) => {
       selectedAnswer: answer
     });
 
+    // === Nově: po každé odpovědi pošli aktualizovaný leaderboard ===
+    const sortedPlayers = [...room.players].sort((a, b) => b.score - a.score);
+    io.to(code).emit("leaderboardUpdate", sortedPlayers);
+
     if (Object.keys(room.answered).length === room.players.length) {
       clearTimeout(room.timer);
       showScoreAndNext(code);
@@ -133,6 +136,10 @@ function showScoreAndNext(code) {
   });
 
   io.to(code).emit("playersUpdate", room.players);
+
+  // === Nově: po zobrazení odpovědí znovu leaderboard ===
+  const sortedPlayers = [...room.players].sort((a, b) => b.score - a.score);
+  io.to(code).emit("leaderboardUpdate", sortedPlayers);
 
   // Pauza 5 s, pak další otázka nebo konec hry
   setTimeout(() => {
