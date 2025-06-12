@@ -1,3 +1,4 @@
+// === script.js (opravený leaderboard) ===
 const socket = io();
 
 const nameInput = document.getElementById("name");
@@ -12,6 +13,7 @@ const startBtn = document.getElementById("startBtn");
 const quizDiv = document.getElementById("quiz");
 const questionTextP = document.getElementById("questionText");
 const answersUl = document.getElementById("answers");
+const leaderboardDiv = document.getElementById("leaderboard");
 
 const resultsDiv = document.getElementById("results");
 const finalScoresUl = document.getElementById("finalScores");
@@ -73,6 +75,7 @@ socket.on("question", (q) => {
   correctAnswerGlobal = null;
   questionTextP.textContent = q.question;
   answersUl.innerHTML = "";
+  leaderboardDiv.innerHTML = "";
 
   q.answers.forEach(a => {
     const li = document.createElement("li");
@@ -102,6 +105,17 @@ socket.on("answerResult", ({ correctAnswer }) => {
       }
     }
   });
+});
+
+socket.on("leaderboardUpdate", (players) => {
+  leaderboardDiv.innerHTML = "<h3>Průběžné pořadí:</h3>";
+  const ul = document.createElement("ul");
+  players.forEach((p, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${index + 1}. ${p.name}: ${p.score} bodů`;
+    ul.appendChild(li);
+  });
+  leaderboardDiv.appendChild(ul);
 });
 
 socket.on("gameOver", (players) => {
